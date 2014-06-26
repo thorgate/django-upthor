@@ -101,7 +101,14 @@ object of your modelform that uses the uploader fields.
     {{ form.media.js }}
 ```
 
-Step 5. Optional stuff
+Step 5. Add the upload url to your project urls.
+------------------------------------------
+
+```
+    url(r'', include('upthor.urls')),
+```
+
+Step 6. Optional stuff
 ------------------------------------------
 
 If you want to use the auto cleanup, you'll need to install https://github.com/Tivix/django-cron django-cron and add

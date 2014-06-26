@@ -162,4 +162,4 @@ class FqCrypto(object):
         if fq_encrypt_disabled():
             return value
 
-        return cls._encode_aes(cls._cipher(), value)
+        return force_text(cls._encode_aes(cls._cipher(), value))

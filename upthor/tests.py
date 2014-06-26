@@ -8,8 +8,8 @@ from upthor.models import FqCrypto, get_upload_path, get_expiry_time, get_linked
 class TestThorUpload(TestCase):
 
     FQ_VAL = 'FQ:test.ExampleModel.content'
-    FQ_ENC = b'T4VqvMwM4iq8LvrC4N8VQCwJi2nwQ8TEGKd2vpVEkoc='
-    FQ_ENC_LONG = b'xK8nzpQR90HzBJPGOSM4nbGEnuBsQJWRQgITiNkxTE0='
+    FQ_ENC = 'T4VqvMwM4iq8LvrC4N8VQCwJi2nwQ8TEGKd2vpVEkoc='
+    FQ_ENC_LONG = 'xK8nzpQR90HzBJPGOSM4nbGEnuBsQJWRQgITiNkxTE0='
 
     def test_fq_encrypt(self):
         with self.settings(SECRET_KEY='F00BA4', THOR_DISABLE_FQ_ENCRYPT=False):
