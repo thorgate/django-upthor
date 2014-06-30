@@ -81,7 +81,6 @@ class ThorFileField(models.FileField):
 
         self.widget = widget or self.get_widget_class()
         self.field_query = None
-        self.max_length = 128
         self.get_upload_image = get_upload_image
         self.get_upload_image_url = get_upload_image_url
 
