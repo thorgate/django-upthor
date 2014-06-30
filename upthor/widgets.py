@@ -202,7 +202,7 @@ class ThorSingleUploadWidget(widgets.FileInput):
 
         output = self.render_template(
             name=name,
-            file_url=file_url,
+            file_url=self.get_file_upload_url_func(file_url),
             element_id=element_id,
             classes=' '.join(classes),
             upload_url=upload_url,
@@ -233,6 +233,19 @@ class ThorSingleUploadWidget(widgets.FileInput):
                             return force_text(field.get_upload_image)
 
         return '<i class="fa fa-file"></i>'
+
+    def get_file_upload_url_func(self, file_url):
+
+        for field in self.field_query[0]._meta.fields:
+            if field.name == self.field_query[1]:
+                if hasattr(field, 'get_upload_image_url'):
+                    if field.get_upload_image_url is not None:
+                        if callable(field.get_upload_image_url):
+                            return field.get_upload_image_url(file_url)
+                        else:
+                            return force_text(field.get_upload_image_url)
+
+        return file_url
 
 
 class ThorMultiUploadWidget(ThorSingleUploadWidget):

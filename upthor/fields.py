@@ -76,11 +76,14 @@ class ThorFormImageField(forms.ImageField):
 class ThorFileField(models.FileField):
     DEFAULT_FILE_TYPES = ['application/pdf', 'application/x-rar-compressed', 'application/zip']
 
-    def __init__(self, post_link=None, allowed_types=None, widget=None, get_upload_image=None, **kwargs):
+    def __init__(self, post_link=None, allowed_types=None, widget=None, get_upload_image=None,
+                 get_upload_image_url=None, **kwargs):
+
         self.widget = widget or self.get_widget_class()
         self.field_query = None
         self.max_length = 128
         self.get_upload_image = get_upload_image
+        self.get_upload_image_url = get_upload_image_url
 
         # Used for validators
         self.allowed_types = self.handle_allowed_types(allowed_types or self.DEFAULT_FILE_TYPES)

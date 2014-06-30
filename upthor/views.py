@@ -57,12 +57,19 @@ class FileUploadView(View):
                     else:
                         upload_icon = force_text(field_value.get_upload_image)
 
+                upload_url = instance.file.url
+                if field_value.get_upload_image_url is not None:
+                    if callable(field_value.get_upload_image_url):
+                        upload_icon = field_value.get_upload_image_url(instance.file.url)
+                    else:
+                        upload_icon = force_text(field_value.get_upload_image_url)
+
                 return self.json_response({
                     'success': True,
                     'file': {
                         'id': instance.id,
                         'md5sum': instance.md5sum,
-                        'url': instance.file.url,
+                        'url': upload_url,
                         'file_name': instance.file.name,
                         'instance_type': 'image' if is_image_type else 'file',
                         'upload_icon': upload_icon,
