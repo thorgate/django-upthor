@@ -127,7 +127,10 @@
                 'top': '-' + $dropContainer.css('border-top-width'),
                 'bottom': '-' + $dropContainer.css('border-bottom-width')
             };
-            $dropContainer.append($('<div class="drop-mask"></div>').css(maskCss));
+
+            if ($dropContainer.find('.drop-mask').length === 0) {
+                $dropContainer.append($('<div class="drop-mask"></div>').css(maskCss));
+            }
 
             if (!is_multi) {
                 $dropContainer.find('.drop-mask').off('click.uploader').on('click.uploader', function () {
