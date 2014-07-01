@@ -35,7 +35,7 @@ INSTALLED_APPS = (
 Then:
 
 ```
-python manage.py migrate
+python manage.py syncdb
 python manage.py collectstatic
 ```
 
