@@ -177,7 +177,9 @@ class ThorFileField(models.FileField):
 
             real_file = new_file
 
-        elif the_file and not the_file._committed and not getattr(self.widget, 'is_thor_widget', False):
+        elif the_file and not the_file._committed:
+            # TODO: Unit test the if change, it might not be a stable change.
+
             # Commit the file to storage prior to saving the model
             # This makes this model work correctly with other widgets
             # (e.g. a plain image upload in admin)
