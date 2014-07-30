@@ -1,12 +1,11 @@
+from django.db.models.fields.files import ImageFileDescriptor, ImageFieldFile
 import os
-
 import six
 
-from django.db.models.fields.files import FieldFile
 from django import forms
 from django.core.files.base import ContentFile
 from django.db import models
-from django.utils.translation import ungettext
+from django.utils.translation import ungettext, ugettext_lazy as _
 
 from upthor.forms import allowed_type
 from upthor.models import TemporaryFileWrapper, human_readable_types
@@ -170,7 +169,7 @@ class ThorFileField(models.FileField):
         # If the file provided is a Temporary One
         if the_file and hasattr(the_file, 'instance') and isinstance(the_file.instance, TemporaryFileWrapper):
             path, filename = os.path.split(the_file.name)
-            new_file = FieldFile(model_instance, self.get_field_pointer(model_instance), filename)
+            new_file = self.attr_class(model_instance, self.get_field_pointer(model_instance), filename)
 
             image_file = ContentFile(the_file.file.read(), the_file.name)
             new_file.save(filename, image_file, save=False)
@@ -195,6 +194,10 @@ class ThorFileField(models.FileField):
 
 class ThorImageField(ThorFileField):
     DEFAULT_FILE_TYPES = ['type:image']
+
+    attr_class = ImageFieldFile
+    descriptor_class = ImageFileDescriptor
+    description = _("Image")
 
     @staticmethod
     def get_widget_class():

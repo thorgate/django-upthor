@@ -1,6 +1,7 @@
+from django.db.models.fields.files import ImageFieldFile, ImageFileDescriptor, FileDescriptor, FieldFile
 from django.test import TestCase
 
-import upthor.views
+from upthor.fields import ThorFileField
 from upthor.models import FqCrypto, get_upload_path, get_expiry_time, get_linked_expiry_time, fq_encrypt_disabled, \
     get_max_file_size, show_in_admin
 
@@ -49,3 +50,14 @@ class TestThorUpload(TestCase):
 
         with self.settings(THOR_ENABLE_ADMIN=False):
             self.assertEquals(show_in_admin(), False)
+
+
+class TestFieldAttrs(TestCase):
+
+    def test_upthor_filefield_attrs(self):
+        self.assertEquals(ThorFileField.attr_class, FieldFile)
+        self.assertEquals(ThorFileField.descriptor_class, FileDescriptor)
+
+    def test_upthor_imagefield_attrs(self):
+        self.assertEquals(ThorFileField.attr_class, ImageFieldFile)
+        self.assertEquals(ThorFileField.descriptor_class, ImageFileDescriptor)
