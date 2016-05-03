@@ -19,12 +19,13 @@
 
             var max_size = $el.data('max-size');
             var $fileInput = $el.find('input[type="file"]');
+            var useBackground = !!$el.data('use-background');
 
             var $removeBtn = $el.find('.close'),
                 $deleteInput = null,
                 upload_url = $el.data('upload-url'),
                 $progressBar = $el.find('.progress-bar'),
-                $imagePreview = $el.find('img'),
+                $imagePreview = useBackground ? $el.find('.image-area') : $el.find('img'),
                 $md5sum = $el.find('input[name="' + $fileInput.attr('name') + '_md5sum"]'),
                 $fqField = $el.find('input[name="' + $fileInput.attr('name') + '_FQ"]'),
                 $controls = $el.parents('.controls'),
@@ -205,7 +206,11 @@
 
                         reader.onloadend = function () {
                             $el.addClass('with-preview');
-                            $imagePreview.attr('src', reader.result);
+                            if (useBackground) {
+                                $imagePreview.css('background-image', 'url("' + reader.result + '")');
+                            } else {
+                                $imagePreview.attr('src', reader.result);
+                            }
                         };
 
                         reader.readAsDataURL(data.files[0]);
@@ -249,7 +254,11 @@
                         $el.toggleClass('is-file', data.result.file.instance_type === 'file');
 
                         if (data.result.file.instance_type === 'image') {
-                            $imagePreview.attr('src', data.result.file.url);
+                            if (useBackground) {
+                                $imagePreview.css('background-image', 'url("' + data.result.file.url + '")');
+                            } else {
+                                $imagePreview.attr('src', data.result.file.url);
+                            }
                         }
 
                         var nameParts = data.result.file.file_name.split('/');
