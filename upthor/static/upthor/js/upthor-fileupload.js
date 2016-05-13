@@ -59,7 +59,15 @@
                         .not('.has-image').length < 1);
                 };
 
-                $controls = $addBtn.parent();
+                var find_controls_cb = $addBtn.data('find-controls-element');
+                if (typeof find_controls_cb === 'function') {
+                    $controls = find_controls_cb.call(
+                        $addBtn,
+                        $container
+                    );
+                } else {
+                    $controls = $addBtn.parent();
+                }
 
                 getNextFileInput = function ($startFrom, idx) {
                     var pre_add_cb = $addBtn.data('pre-add-cb');
