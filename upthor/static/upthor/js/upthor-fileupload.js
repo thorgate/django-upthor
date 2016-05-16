@@ -253,7 +253,7 @@
                     if (data.result && data.result.success) {
                         setProgress($progressBar, reversed, 1);
                         $controls.find('.upload-field-error').html('');
-                        $controls.addClass('has-error');
+                        $controls.removeClass('has-error');
 
                         $el.removeClass('with-preview').removeClass('with-progress').addClass('has-image');
                         $md5sum.val(data.result.file.md5sum);
