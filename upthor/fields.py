@@ -202,16 +202,12 @@ class ThorFileField(models.FileField):
         return real_file
 
 
-class ThorImageField(ThorFileField):
+class ThorImageField(ThorFileField, models.ImageField):
     DEFAULT_FILE_TYPES = ['type:image']
 
     attr_class = ImageFieldFile
     descriptor_class = ImageFileDescriptor
     description = _("Image")
-
-    def __init__(self, verbose_name=None, name=None, width_field=None, height_field=None, **kwargs):
-        self.width_field, self.height_field = width_field, height_field
-        super(ThorImageField, self).__init__(verbose_name=verbose_name, name=name, **kwargs)
 
     @staticmethod
     def get_widget_class():
@@ -223,9 +219,6 @@ class ThorImageField(ThorFileField):
 
     def formfield(self, **kwargs):
         return super(ThorImageField, self).formfield(**kwargs)
-
-    def update_dimension_fields(self, instance, force=False, *args, **kwargs):
-        return models.ImageField.update_dimension_fields(self, instance, force=force, *args, **kwargs)
 
 
 try:
