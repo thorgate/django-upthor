@@ -1,6 +1,5 @@
 
-django-upthor
-========
+#django-upthor
 
 `django-upthor` provides a django application for simple ajax file uploads. We use
 https://github.com/blueimp/jQuery-File-Upload for the upload functionality.
@@ -8,12 +7,10 @@ https://github.com/blueimp/jQuery-File-Upload for the upload functionality.
 **Warning:** This isn't close to being a complete app, but it's getting there.
 
 
-Usage
-===========================================
+#Usage
 
 
-Step 1. Install
--------------------------------------
+##Step 1. Install
 
 - `pip install django-upthor`
 
@@ -24,8 +21,7 @@ Now you have two options:
 
 
 
-Step 2. (Django 1.6+)
--------------------------------------
+##Step 2. (Django 1.6+)
 Add 'upthor' to your installed apps in settings.py:
 
 ```
@@ -42,8 +38,7 @@ python manage.py migrate
 ```
 
 
-Step 3. Use it in your app's models.
-----------------------------------------
+##Step 3. Use it in your app's models.
 
 ```
 
@@ -91,8 +86,7 @@ class ExampleModelWithFile(models.Model):
 ```
 
 
-Step 4. Make sure to include form media.
-------------------------------------------
+##Step 4. Make sure to include form media.
 
 Make sure you include the media files for the form in your templates:
 
@@ -106,16 +100,14 @@ object of your modelform that uses the uploader fields.
 ```
 
 
-Step 5. Add the upload url to your project urls.
-------------------------------------------
+##Step 5. Add the upload url to your project urls.
 
 ```
     url(r'', include('upthor.urls')),
 ```
 
 
-Step 6. Optional stuff
-------------------------------------------
+##Step 6. Optional stuff
 
 #### Temporary file cleanup
 
@@ -135,37 +127,35 @@ You can override `ThorSingleUploadWidget.render_template` to return your own wid
 | use-background      | boolean | Whether or not to use `background-image` instead of `img` elements, defaults to false. |
 
 
-Backends
-========
+#Backends
 
 Currently it only supports local file backend, but we plan to add other backends when we reach a stable state.
 
 
-Settings
-========
+#Settings
 
 The following settings are customizable using your django project settings file.
 
-### THOR_UPLOAD_TO ###
+**THOR_UPLOAD_TO**
 
 Path where the upload files will be stored. Defaults to "temp-files".
 
-### THOR_EXPIRE_TIME ###
+**THOR_EXPIRE_TIME**
 
-How long are the temporary files kept in the database and on disk. Defaults to "60*60*24", e.g. 24 hours.
+How long to keep temporary files in the database and on disk. Defaults to "60*60*24", e.g. 24 hours.
 
-### THOR_LINKED_EXPIRE_TIME ###
+**THOR_LINKED_EXPIRE_TIME**
 
-How long are the linked temporary files kept in the database and on disk. Defaults to "60*60*6", e.g. 6 hours.
+How long to keep linked temporary files in the database and on disk. Defaults to "60*60*6", e.g. 6 hours.
 
-### THOR_MAX_FILE_SIZE ###
+**THOR_MAX_FILE_SIZE**
 
-Whats the max file size of uploaded files. Defaults to "2*1024*1024", e.g. 2 MB. 
+The max file size of uploaded files. Defaults to "2*1024*1024", e.g. 2 MB. 
 
-### THOR_DISABLE_FQ_ENCRYPT ###
+**THOR_DISABLE_FQ_ENCRYPT**
 
 Disable the FQ Encryption, if this is False you need to install pycrypto since that is used for encryption. Defaults to "False".
 
-### THOR_ENABLE_ADMIN ###
+**THOR_ENABLE_ADMIN**
 
 Should TemporaryFileWrapper model be shown in the admin interface. Defaults to "True".

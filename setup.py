@@ -1,17 +1,25 @@
 import os
 from setuptools import setup, find_packages
 
+
 from upthor import __version__ as version
 
-f = open(os.path.join(os.path.dirname(__file__), 'README.md'))
-readme = f.read()
-f.close()
+try:
+    from pypandoc import convert
+
+    def read_md(f):
+        return convert(f, 'rst')
+except ImportError:
+    print("warning: pypandoc module not found, could not convert Markdown to RST")
+
+    def read_md(f):
+        return open(f, 'r', encoding='utf-8').read()
 
 setup(
     name='django-upthor',
     version=version,
-    description='`django-upthor` provides a django application for simple ajax file uploads.',
-    long_description=readme,
+    description='django-upthor provides a django application for simple ajax file uploads.',
+    long_description=read_md('README.md'),
     author="Thorgate",
     author_email='info@thorgate.eu',
     url='https://github.com/thorgate/django-upthor',
