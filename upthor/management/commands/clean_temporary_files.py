@@ -13,8 +13,7 @@ class Command(NoArgsCommand):
     help = 'Cleans up TemporaryFileWrapper objects by deleting the ' \
            'ones that are older than the timedelta defined in THOR_EXPIRE_TIME.'
 
-    @staticmethod
-    def clean_temporary_files():
+    def clean_temporary_files(self):
         linked_stale_delta = timezone.now() - datetime.timedelta(seconds=get_linked_expiry_time())
         stale_delta = timezone.now() - datetime.timedelta(seconds=get_expiry_time())
 
@@ -22,6 +21,7 @@ class Command(NoArgsCommand):
                                                     Q(linked=False, modified__lte=stale_delta))
 
         logging.info('clean_temporary_files: Removing %d TemporaryFileWrapper objects from DB.', files.count())
+        self.stdout.write('clean_temporary_files: Removing %d TemporaryFileWrapper objects from DB.' % files.count())
         logging.debug('clean_temporary_files: Removing TemporaryFileWrapper objects [%s].',
                       ', '.join([force_text(x) for x in files.values_list('id', flat=True)]))
 

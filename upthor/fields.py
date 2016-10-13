@@ -202,7 +202,7 @@ class ThorFileField(models.FileField):
         return real_file
 
 
-class ThorImageField(ThorFileField):
+class ThorImageField(ThorFileField, models.ImageField):
     DEFAULT_FILE_TYPES = ['type:image']
 
     attr_class = ImageFieldFile

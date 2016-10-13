@@ -1,7 +1,6 @@
 import json
 import re
 
-from django.db.models import get_model, UnavailableApp
 from django.http.response import HttpResponse
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
@@ -11,6 +10,25 @@ from django.views.generic.base import View
 from upthor.models import FqCrypto
 from upthor.fields import ThorFileField, ThorImageField
 from upthor.forms import TemporaryFileForm, allowed_type
+
+try:
+    from django.apps import apps
+    get_model = apps.get_model
+
+except ImportError:
+    from django.db.models import get_model as django_get_model
+
+    def get_model(app_label, model_name=None):
+        if model_name is None:
+            app_label, model_name = app_label.split('.')
+
+        try:
+            model = django_get_model(app_label, model_name)
+            if not model:
+                raise LookupError
+        except:
+            raise LookupError
+        return model
 
 
 class FileUploadView(View):
@@ -91,8 +109,8 @@ class FileUploadView(View):
             return False, None, ['FQ protection validation failed.']
 
         try:
-            model = get_model(field_component[0], field_component[1])
-        except UnavailableApp as e:
+            model = apps.get_model(field_component[0], field_component[1])
+        except LookupError as e:
             model = None
 
         if model is None:

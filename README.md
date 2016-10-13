@@ -1,3 +1,4 @@
+
 django-upthor
 ========
 
@@ -10,18 +11,20 @@ https://github.com/blueimp/jQuery-File-Upload for the upload functionality.
 Usage
 ===========================================
 
+
 Step 1. Install
 -------------------------------------
 
- - `pip install git+https://github.com/Jyrno42/django-upthor.git`
+- `pip install git+https://github.com/Jyrno42/django-upthor.git`
 
 Now you have two options:
 
- - If you want to encrypt FQ values, install pycrypto. `pip install pycrypto==2.6.1`
- - Or you can, disable FQ encryption by adding `THOR_DISABLE_FQ_ENCRYPT = True` to your settings file.
+- If you want to encrypt FQ values, install pycrypto. `pip install pycrypto==2.6.1`
+- Or you can, disable FQ encryption by adding `THOR_DISABLE_FQ_ENCRYPT = True` to your settings file.
 
 
-Step 2. (Django 1.3+)
+
+Step 2. (Django 1.6+)
 -------------------------------------
 Add 'upthor' to your installed apps in settings.py:
 
@@ -35,9 +38,9 @@ INSTALLED_APPS = (
 Then:
 
 ```
-python manage.py syncdb
-python manage.py collectstatic
+python manage.py migrate
 ```
+
 
 Step 3. Use it in your app's models.
 ----------------------------------------
@@ -87,6 +90,7 @@ class ExampleModelWithFile(models.Model):
                                    get_upload_image=get_file_image)
 ```
 
+
 Step 4. Make sure to include form media.
 ------------------------------------------
 
@@ -101,6 +105,7 @@ object of your modelform that uses the uploader fields.
     {{ form.media.js }}
 ```
 
+
 Step 5. Add the upload url to your project urls.
 ------------------------------------------
 
@@ -108,18 +113,34 @@ Step 5. Add the upload url to your project urls.
     url(r'', include('upthor.urls')),
 ```
 
+
 Step 6. Optional stuff
 ------------------------------------------
 
-If you want to use the auto cleanup, you'll need to install https://github.com/Tivix/django-cron django-cron and add
-```upthor.cron.CleanTemporaryFiles``` to your cron classes in settings.
+#### Temporary file cleanup
+
+If you want to clean up temporary files automatically, you'll need to install [django-cron](https://github.com/Tivix/django-cron) and add `upthor.cron.CleanTemporaryFiles` to your cron classes in settings.
+
+Alternatively to clean up manually you can use the management command `clean_temporary_files`.
+
+#### Custom upload widget template
+
+You can override `ThorSingleUploadWidget.render_template` to return your own widget template instead of the [hardcoded one defined in widgets.py](upthor/widgets.py). Although the structure (including most classes) has to remain the same, there are a few data attributes on `.file-upload` that you can use to customize behavior:
+
+| Data Attribute Name | Type    | Description                              |
+| ------------------- | ------- | ---------------------------------------- |
+| upload-url          | string  | **Required:** URL to POST temporary files to, defaults to reverse of `thor-file-upload`. |
+| max-size            | number  | **Required:** Maximum allowed file size in bytes, defaults to `THOR_MAX_FILE_SIZE`. |
+| size-error          | string  | **Required:** Text to display if the file doesn't meet the size requirements, defaults to ` "Uploaded file too large"`. |
+| use-background      | boolean | Whether or not to use `background-image` instead of `img` elements, defaults to false. |
 
 
 Backends
 ========
 
 Currently it only supports local file backend, but we plan to add other backends when we reach a stable state.
- 
+
+
 Settings
 ========
 
@@ -144,7 +165,7 @@ Whats the max file size of uploaded files. Defaults to "2*1024*1024", e.g. 2 MB.
 ### THOR_DISABLE_FQ_ENCRYPT ###
 
 Disable the FQ Encryption, if this is False you need to install pycrypto since that is used for encryption. Defaults to "False".
- 
+
 ### THOR_ENABLE_ADMIN ###
 
 Should TemporaryFileWrapper model be shown in the admin interface. Defaults to "True".
