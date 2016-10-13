@@ -14,7 +14,7 @@ setup(
     long_description=readme,
     author="Thorgate",
     author_email='info@thorgate.eu',
-    url='https://github.com/Jyrno42/django-upthor',
+    url='https://github.com/thorgate/django-upthor',
     packages=find_packages(),
     package_data={'upthor': [
         'static/upthor/css/*',
@@ -34,5 +34,7 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        'Programming Language :: Python :: 2',
+        'Programming Language :: Python :: 3',
     ],
 )

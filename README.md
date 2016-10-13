@@ -15,7 +15,7 @@ Usage
 Step 1. Install
 -------------------------------------
 
-- `pip install git+https://github.com/Jyrno42/django-upthor.git`
+- `pip install django-upthor`
 
 Now you have two options:
 
