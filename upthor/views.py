@@ -39,7 +39,6 @@ class FileUploadView(View):
     def json_response(response, status=200):
         return HttpResponse(json.dumps(response), status=status)
 
-
     @classmethod
     def parse_field_component(cls, component):
 

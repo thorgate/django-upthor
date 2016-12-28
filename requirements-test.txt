@@ -1,0 +1,8 @@
+coverage
+coveralls
+mock>=1.0.1
+flake8>=2.1.0
+tox>=1.7.0
+pycrypto==2.6.1
+
+# Additional test requirements go here

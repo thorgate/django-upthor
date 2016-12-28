@@ -97,7 +97,6 @@ class ThorFileField(models.FileField):
 
         super(ThorFileField, self).contribute_to_class(cls, name)
 
-
     def post_link(self, real_instance, temporary_instance, raw_file):
         """ This function is used to provide a way for
             developers to do some needed post processing for files.
