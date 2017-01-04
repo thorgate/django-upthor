@@ -18,6 +18,7 @@ settings.configure(DEBUG=True,
         'upthor',
     )
 )
+
 django.setup()
 
 if django.VERSION < (1, 8):
