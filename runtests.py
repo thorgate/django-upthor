@@ -1,4 +1,5 @@
 import sys
+import django
 from django.conf import settings
 
 settings.configure(DEBUG=True,
@@ -17,10 +18,17 @@ settings.configure(DEBUG=True,
         'upthor',
     )
 )
+django.setup()
 
-from django.test.simple import DjangoTestSuiteRunner
+if django.VERSION < (1, 8):
+    from django.test.simple import DjangoTestSuiteRunner
 
-test_runner = DjangoTestSuiteRunner(verbosity=1)
+    test_runner = DjangoTestSuiteRunner(verbosity=1)
+else:
+    from django.test.runner import DiscoverRunner
+
+    test_runner = DiscoverRunner(verbosity=1)
+
 failures = test_runner.run_tests(['upthor', ])
 
 if failures:

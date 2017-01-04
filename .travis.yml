@@ -1,0 +1,33 @@
+language: python
+python:
+- '3.5'
+install:
+- pip install -r requirements-test.txt
+script:
+- tox
+env:
+  matrix:
+  - TOXENV=py27-django18
+  - TOXENV=py27-django19
+  - TOXENV=py27-django110
+  - TOXENV=py34-django18
+  - TOXENV=py34-django19
+  - TOXENV=py34-django110
+  - TOXENV=py35-django18
+  - TOXENV=py35-django19
+  - TOXENV=py35-django110
+  - TOXENV=flake8
+  - TOXENV=coverage
+after_success: coveralls
+deploy:
+  provider: pypi
+  user: thorgate
+  password:
+    secure: RX8qBbSIOE5YhHt3leg6exSp+XoFDWt5J/zk+T78CqOv+BFXHjE3nU7T4z0lzEvSxt9vB0CQHf0u2zIsqF5M8M1/+duidAUgDuDJMg1DcfUZb/vQXpldp33EmnbeRh8pxAarsy2xet6AfGK0nvwZpOqotJK0oWbRTS2rcMNNZhE=
+  on:
+    # Warning: With this config, the package is released on pypi after the first matrix job succeeeds. This is currently fine
+    #           since we shouldn't create tags before a successful build. Travis plans to add after_success callback in Q1/Q2 of
+    #           2017. See https://github.com/travis-ci/travis-ci/issues/929 for more info.
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: thorgate/django-upthor

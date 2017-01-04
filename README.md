@@ -1,6 +1,9 @@
 
 #django-upthor
 
+[![PyPI version](https://badge.fury.io/py/django-upthor.svg)](https://badge.fury.io/py/django-upthor) 
+[![Build Status](https://travis-ci.org/thorgate/django-upthor.svg?branch=master)](https://travis-ci.org/thorgate/django-upthor)
+
 `django-upthor` provides a django application for simple ajax file uploads. We use
 https://github.com/blueimp/jQuery-File-Upload for the upload functionality.
 
@@ -59,9 +62,9 @@ def random_upload_path(instance, filename):
 def post_example_file_link(real_instance, temporary_instance, raw_file):
     """
         A callback called after linking the temporary file with the model.
-        
+
         **Warning**: Don't call instances save method from here, cause it will cause an recursion error.
-    
+
         @:param real_instance An instance of the model the file is attached to
         @:param temporary_instance An instance of TemporaryFileWrapper that the form links to.
         @:param raw_file The raw file that is being uploaded.
@@ -73,7 +76,7 @@ def post_example_file_link(real_instance, temporary_instance, raw_file):
 
 def get_file_image(file_path):
     """ An optional function that returns the display image html for files after uploading is complete"""
-    
+
     return '<i class="fa fa-file"></i>'
 
 
@@ -90,12 +93,12 @@ class ExampleModelWithFile(models.Model):
 
 Make sure you include the media files for the form in your templates:
 
-E.g. Add the following codes where form is the context 
+E.g. Add the following codes where form is the context
 object of your modelform that uses the uploader fields.
 
 ```
     {{ form.media.css }}
-    
+
     {{ form.media.js }}
 ```
 
@@ -150,7 +153,7 @@ How long to keep linked temporary files in the database and on disk. Defaults to
 
 **THOR_MAX_FILE_SIZE**
 
-The max file size of uploaded files. Defaults to "2*1024*1024", e.g. 2 MB. 
+The max file size of uploaded files. Defaults to "2*1024*1024", e.g. 2 MB.
 
 **THOR_DISABLE_FQ_ENCRYPT**
 
