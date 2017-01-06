@@ -30,8 +30,8 @@ deploy:
   user: thorgate
   password:
     secure: >
-      RG5CYr+x6BfSiQgkan2Y6NqeKpAIU4tcBdx7FxWrus320ewFRZjCb4g1l6QPTxzyIuekWQuwPp/RtS7VHU/sPq5jQX1vbxFGlydFuzLswwQuI
-      tO8pmvaz6vLtSyS8XsIf2luON/I0QwUZ8klRiEKk9cyU8DDdX3fW+YVUuNpL20=
+      BONJP3X1ZzMrdCPtcXmEqvvfX00hzoXXi2d0jd2dq0lewG4ezgTUd/X8rdN3RHpIr4/p3n4Nn2FbxVdr3T0TrtiFo/8z/ABJnrCgx21cn/1MR
+      9hmxYgYOUG1xqfz/oUXBuMBCBggVxDq5jEVQGeGMBll2zOw5PyHIzX92bbQV5Y=
   on:
     # Warning: With this config, the package is released on pypi after the first matrix job succeeeds. This is currently fine
     #           since we shouldn't create tags before a successful build. Travis plans to add after_success callback in Q1/Q2 of
